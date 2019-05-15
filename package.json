@@ -1,0 +1,15 @@
+{
+  "name": "study-electronjs",
+  "version": "1.0.0",
+  "description": "electronjs app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Endang Ismaya",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-google": "^0.13.0"
+  }
+}
