@@ -13,7 +13,7 @@ app.on('ready', () => {
     },
     show: false,
   }); // appWindow
-  appWindow.loadURL('http://eranris.com');
+  appWindow.loadURL(`file://${__dirname}/index.html`);
 
   infoWindow = new BrowserWindow({
     width: 400,
@@ -29,12 +29,12 @@ app.on('ready', () => {
 
   appWindow.once('ready-to-show', () => {
     appWindow.show();
-    setTimeout(() => {
-      infoWindow.show();
-      // setTimeout(() => {
-      //   infoWindow.hide();
-      // }, 3000);
-    }, 1000);
+    // setTimeout(() => {
+    //   infoWindow.show();
+    //   setTimeout(() => {
+    //     infoWindow.hide();
+    //   }, 3000);
+    // }, 1000);
   }); // ready-to-show
 
   ipc.on('closeInfoWindow', (event) => {
