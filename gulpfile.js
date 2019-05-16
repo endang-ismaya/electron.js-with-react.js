@@ -1,12 +1,19 @@
+// gulp configuration
 const gulp = require('gulp');
+// gulp plugins
 const browserify = require('gulp-browserify');
 const concatCss = require('gulp-concat-css');
 const run = require('gulp-run');
+// const htmlclean = require('gulp-htmlclean'); // html
+// const concat = require('gulp-concat');
 
-const src = './process';
-const app = './app';
+const src = 'src/';
+const build = 'build/';
 
-gulp.task('js', function() {
+// javascript
+function js() {
+  const out = build + 'js/';
+
   return gulp
       .src(src + '/js/render.js')
       .pipe(
@@ -19,35 +26,39 @@ gulp.task('js', function() {
       .on('error', function(err) {
         console.error('Error!', err.message);
       })
-      .pipe(gulp.dest(app + '/js'));
-});
+      .pipe(gulp.dest(out));
+}
 
-gulp.task('html', function() {
-  gulp.src(src + '/**/*.html');
-});
+// html
+function html() {
+  return gulp.src(src + '/**/*.html');
+}
 
-gulp.task('css', function() {
-  gulp
-      .src(src + '/css/*.css')
+// css
+function css() {
+  const out = build + 'css/';
+  return gulp
+      .src(src + 'css/*.css')
       .pipe(concatCss('app.css'))
-      .pipe(gulp.dest(app + '/css'));
-});
+      .pipe(gulp.dest(out));
+}
 
-// gulp.task('fonts', function() {
-//   gulp
-//       .src('node_modules/bootstrap/dist/fonts/**/*')
-//       .pipe(gulp.dest(app + '/fonts'));
-// });
+// watch for file changes
+function watch(done) {
+  // html changes
+  gulp.watch(src + 'html/**/*', html);
+  // css changes
+  gulp.watch(src + 'scss/**/*', css);
+  // js changes
+  gulp.watch(src + 'js/**/*', js);
 
-gulp.task('watch', ['serve'], function() {
-  gulp.watch(src + '/js/**/*', ['js']);
-  gulp.watch(src + '/css/**/*.css', ['css']);
-  gulp.watch([app + '/**/*.html'], ['html']);
-});
+  done();
+}
 
-gulp.task('serve', ['html', 'js', 'css'], function() {
-  run('electron app/main.js').exec();
-});
+// run serve
+function serve() {
+  run('electron build/main.js').exec();
+}
 
-// gulp.task('default', ['watch', 'fonts', 'serve']);
-gulp.task('default', ['watch', 'serve']);
+exports.build = gulp.parallel(html, css, js);
+exports.default = gulp.series(exports.build, watch, serve);
