@@ -6,8 +6,9 @@ module.exports = {
   env: {
     node: true,
     es6: true,
+    browser: true,
   },
-  extends: ['eslint:recommended', 'google'],
+  extends: ['eslint:recommended', 'google', 'plugin:react/recommended'],
   rules: {
     'require-jsdoc': [
       'error',
