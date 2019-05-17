@@ -1,6 +1,6 @@
 {
   "name": "study-electronjs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "electronjs app",
   "main": "./build/main.js",
   "scripts": {
