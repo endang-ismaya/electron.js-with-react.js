@@ -1,6 +1,6 @@
 {
   "name": "study-electronjs",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "electronjs app",
   "main": "./build/main.js",
   "scripts": {
@@ -32,6 +32,8 @@
     "electron-reload": "^1.4.0",
     "jquery": "^3.4.1",
     "lodash": "^4.17.11",
-    "popper.js": "^1.15.0"
+    "popper.js": "^1.15.0",
+    "uglify-js": ">=2.6.0",
+    "shell-quote": ">=1.6.1"
   }
 }
