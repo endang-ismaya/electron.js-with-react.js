@@ -15,12 +15,28 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const createReactClass = require('create-react-class');
 const AptList = require('./AptList');
+const Toolbar = require('./Toolbar');
 
 const MainInterface = createReactClass({
   getInitialState: function() {
     return {
       myAppointments: loadApts,
     };
+  },
+  componentDidUpdate: function() {
+    fs.writeFile(
+        dataLocation,
+        JSON.stringify(this.state.myAppointments),
+        'utf8',
+        function(err) {
+          if (err) {
+            console.log(err);
+          }
+        }
+    );
+  },
+  showAbout: function() {
+    ipc.sendSync('openInfoWindow');
   },
   deleteMessage: function(item) {
     const allApts = this.state.myAppointments;
@@ -45,17 +61,17 @@ const MainInterface = createReactClass({
 
     return (
       <div className="application">
-        <div className="container">
-          <div className="row">
-            <div className="appointments col-sm-12">
-              <h2 className="appointments-headline">Current Appointments</h2>
-              <ul className="item-list media-list">{myAppointments}</ul>
+        <div className="interface">
+          <Toolbar handleAbout={this.showAbout} />
+          <div className="container">
+            <div className="row">
+              <div className="appointments col-sm-12">
+                <h2 className="appointments-headline">Current Appointments</h2>
+                <ul className="item-list media-list">{myAppointments}</ul>
+              </div>
             </div>
-            {/* col-sm-12 */}
           </div>
-          {/* row */}
         </div>
-        {/* container */}
       </div>
     );
   },
