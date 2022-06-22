@@ -34,6 +34,6 @@
     "lodash": "^4.17.11",
     "popper.js": "^1.15.0",
     "uglify-js": ">=2.6.0",
-    "shell-quote": ">=1.6.1"
+    "shell-quote": ">=1.7.3"
   }
 }
