@@ -30,10 +30,10 @@
     "create-react-class": "^15.6.3",
     "electron": "^18.3.7",
     "electron-reload": "^1.4.0",
-    "jquery": "^3.4.1",
-    "lodash": "^4.17.11",
+"jquery": "^3.5.0",
+    "lodash": "^4.17.21",
     "popper.js": "^1.15.0",
     "uglify-js": ">=2.6.0",
-    "shell-quote": ">=1.6.1"
+    "shell-quote": ">=1.7.3"
   }
 }
