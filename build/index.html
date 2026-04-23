@@ -23,9 +23,12 @@
     </div> <!-- Pet Ratings -->
   </div> <!-- Main -->
   <script>
-    const eRequire = require;
-    const dirName = __dirname;
-    const dataLocation = require('path').resolve(__dirname, '..', 'data', 'data.json');
+    const eRequire = {
+      fs: window.electronAPI.fs,
+      path: window.electronAPI.path,
+    };
+    const dirName = window.electronAPI.path.dirname;
+    const dataLocation = window.electronAPI.dataLocation;
   </script>
   <script src="js/render.js"></script>
 </body>

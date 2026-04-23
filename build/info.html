@@ -20,16 +20,11 @@
     <p>
       Welcome to the Wisdom Pet App<br />
       <strong>Version 1.0.0</strong><br />
-      <small>Built with love by <a href="#" onclick="shell.openExternal('http://eranris.com')">Endang Ismaya</a></small>
+      <small>Built with love by <a href="#" onclick="window.electronAPI.shell.openExternal('http://eranris.com')">Endang Ismaya</a></small>
     </p>
     <p>
-      <a href="#" onclick="ipc.sendSync('closeInfoWindow')">close window</a>
+      <a href="#" onclick="window.electronAPI.ipc.sendSync('closeInfoWindow')">close window</a>
     </p>
   </main>
-  <script>
-    const electron = require('electron');
-    const shell = electron.shell;
-    const ipc = electron.ipcRenderer;
-  </script>
 </body>
 </html>

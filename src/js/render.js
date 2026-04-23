@@ -2,8 +2,8 @@ const $ = require('jquery');
 const _ = require('lodash');
 const bootstrap = require('bootstrap');
 const popper = require('popper.js');
-const fs = eRequire('fs');
-const loadApts = JSON.parse(fs.readFileSync(dataLocation));
+const fs = eRequire.fs;
+const loadApts = JSON.parse(fs.readDataJson());
 
 // $(() => {
 //   $('#petAppointments').append(
@@ -24,19 +24,10 @@ const MainInterface = createReactClass({
     };
   },
   componentDidUpdate: function() {
-    fs.writeFile(
-        dataLocation,
-        JSON.stringify(this.state.myAppointments),
-        'utf8',
-        function(err) {
-          if (err) {
-            console.log(err);
-          }
-        }
-    );
+    fs.writeDataJson(JSON.stringify(this.state.myAppointments));
   },
   showAbout: function() {
-    ipc.sendSync('openInfoWindow');
+    window.electronAPI.ipc.sendSync('openInfoWindow');
   },
   deleteMessage: function(item) {
     const allApts = this.state.myAppointments;

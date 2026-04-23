@@ -2,6 +2,7 @@ const electron = require('electron');
 const BrowserWindow = electron.BrowserWindow;
 const app = electron.app;
 const ipc = electron.ipcMain;
+const path = require('path');
 
 let appWindow = null;
 let infoWindow = null;
@@ -9,22 +10,25 @@ let infoWindow = null;
 app.on('ready', () => {
   appWindow = new BrowserWindow({
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
     show: false,
-  }); // appWindow
+  });
   appWindow.loadURL(`file://${__dirname}/index.html`);
 
   infoWindow = new BrowserWindow({
     width: 400,
     height: 300,
     transparent: true,
-    // frame: false,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
     show: false,
-  }); // infoWindow
+  });
   infoWindow.loadURL(`file://${__dirname}/info.html`);
 
   appWindow.once('ready-to-show', () => {
