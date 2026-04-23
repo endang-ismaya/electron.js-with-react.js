@@ -1,18 +1,11 @@
 const $ = require('jquery');
 const _ = require('lodash');
 const bootstrap = require('bootstrap');
-const popper = require('popper.js');
 const fs = eRequire.fs;
 const loadApts = JSON.parse(fs.readDataJson());
 
-// $(() => {
-//   $('#petAppointments').append(
-//       '<h3 class="text-success">Wisdom Pet App Loaded</h3>'
-//   );
-// });
-
 const React = require('react');
-const ReactDOM = require('react-dom');
+const {createRoot} = require('react-dom/client');
 const createReactClass = require('create-react-class');
 const AptList = require('./AptList');
 const Toolbar = require('./Toolbar');
@@ -68,4 +61,5 @@ const MainInterface = createReactClass({
   },
 });
 
-ReactDOM.render(<MainInterface />, document.getElementById('petAppointments'));
+const root = createRoot(document.getElementById('petAppointments'));
+root.render(<MainInterface />);

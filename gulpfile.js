@@ -1,64 +1,54 @@
-// gulp configuration
 const gulp = require('gulp');
-// gulp plugins
-const browserify = require('gulp-browserify');
+const babel = require('gulp-babel');
 const concatCss = require('gulp-concat-css');
 const run = require('gulp-run');
-// const htmlclean = require('gulp-htmlclean'); // html
-// const concat = require('gulp-concat');
 
 const src = 'src/';
 const build = 'build/';
 
-// javascript
 function js() {
   const out = build + 'js/';
-
   return gulp
-      .src(src + '/js/render.js')
-      .pipe(
-          browserify({
-            transform: 'reactify',
-            extensions: 'browserify-css',
-            debug: true,
-          })
-      )
-      .on('error', function(err) {
-        console.error('Error!', err.message);
+    .src(src + 'js/**/*.js')
+    .pipe(
+      babel({
+        presets: ['@babel/preset-react'],
       })
-      .pipe(gulp.dest(out));
+    )
+    .on('error', function(err) {
+      console.error('Error!', err.message);
+      this.emit('end');
+    })
+    .pipe(gulp.dest(out));
 }
 
-// html
 function html() {
-  return gulp.src(src + '/**/*.html');
+  return gulp.src(src + 'html/**/*.html').pipe(gulp.dest(build + 'html/'));
 }
 
-// css
+function electron() {
+  return gulp.src(src + 'electron/**/*.js').pipe(gulp.dest(build));
+}
+
 function css() {
   const out = build + 'css/';
   return gulp
-      .src(src + 'css/*.css')
-      .pipe(concatCss('app.css'))
-      .pipe(gulp.dest(out));
+    .src(src + 'css/**/*.css')
+    .pipe(concatCss('app.css'))
+    .pipe(gulp.dest(out));
 }
 
-// watch for file changes
 function watch(done) {
-  // html changes
-  gulp.watch(src + 'html/**/*', html);
-  // css changes
-  gulp.watch(src + 'scss/**/*', css);
-  // js changes
-  gulp.watch(src + 'js/**/*', js);
-
+  gulp.watch(src + 'html/**/*.html', html);
+  gulp.watch(src + 'css/**/*.css', css);
+  gulp.watch(src + 'js/**/*.js', js);
+  gulp.watch(src + 'electron/**/*.js', electron);
   done();
 }
 
-// run serve
 function serve() {
-  run('electron build/main.js').exec();
+  return run('electron build/main.js').exec();
 }
 
-exports.build = gulp.parallel(html, css, js);
+exports.build = gulp.parallel(html, css, js, electron);
 exports.default = gulp.series(exports.build, watch, serve);

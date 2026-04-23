@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src *" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wisdom Pet Medicine</title>
+  <link rel="stylesheet" href="../css/app.css">
+</head>
+<body id="page-info">
+  <main class="info-content p-4">
+    <h3 class="page-headline mb-3">Wisdom Pet</h3>
+    <p class="mb-2">
+      Welcome to the Wisdom Pet App<br />
+      <strong>Version 1.0.8</strong><br />
+      <small>Built with love by <a href="#" id="authorLink">Endang Ismaya</a></small>
+    </p>
+    <p>
+      <button class="btn btn-primary btn-sm" id="closeBtn">Close Window</button>
+    </p>
+  </main>
+  <script>
+    document.getElementById('authorLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.electronAPI.shell.openExternal('http://eranris.com');
+    });
+    document.getElementById('closeBtn').addEventListener('click', function() {
+      window.electronAPI.ipc.sendSync('closeInfoWindow');
+    });
+  </script>
+</body>
+</html>

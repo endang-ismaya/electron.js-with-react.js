@@ -8,19 +8,20 @@ const AptList = createReactClass({
   render: function() {
     const {singleItem} = this.props;
     return (
-      <li className="pet-item media">
-        <div className="media-left">
-          <div
-            className="pet-delete btn btn-xs btn-danger"
+      <li className="pet-item d-flex align-items-start mb-3">
+        <div className="me-3">
+          <button
+            type="button"
+            className="pet-delete btn btn-sm btn-danger"
             onClick={this.handleDelete}
           >
             X
-          </div>
+          </button>
         </div>
-        <div className="pet-info media-body">
-          <div className="pet-head">
+        <div className="pet-info flex-grow-1">
+          <div className="pet-head d-flex justify-content-between">
             <span className="pet-name">{singleItem.petName}</span>
-            <span className="apt-date float-right">{singleItem.aptDate}</span>
+            <span className="apt-date">{singleItem.aptDate}</span>
           </div>
           <div className="owner-name">
             <span className="label-item">Owner:</span>

@@ -1,4 +1,4 @@
-@import url('../../node_modules/bootstrap/dist/css/bootstrap.css');
+@import url('../../node_modules/bootstrap/dist/css/bootstrap.min.css');
 
 *,
 *:before,
@@ -36,12 +36,12 @@ h6 {
   }
 }
 
-.navbar-default .navbar-brand {
+.navbar-dark .navbar-brand {
   color: white;
   padding-left: 60px;
 }
 
-.navbar-default {
+.navbar-dark {
   background-color: #194759;
   border: none;
 }
