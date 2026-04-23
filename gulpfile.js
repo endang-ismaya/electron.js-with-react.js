@@ -1,25 +1,19 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-const concatCss = require('gulp-concat-css');
-const run = require('gulp-run');
+const concat = require('gulp-concat');
 
 const src = 'src/';
 const build = 'build/';
 
 function js() {
-  const out = build + 'js/';
   return gulp
     .src(src + 'js/**/*.js')
-    .pipe(
-      babel({
-        presets: ['@babel/preset-react'],
-      })
-    )
+    .pipe(babel({presets: ['@babel/preset-react']}))
     .on('error', function(err) {
-      console.error('Error!', err.message);
+      console.error('Babel Error:', err.message);
       this.emit('end');
     })
-    .pipe(gulp.dest(out));
+    .pipe(gulp.dest(build + 'js/'));
 }
 
 function html() {
@@ -31,11 +25,10 @@ function electron() {
 }
 
 function css() {
-  const out = build + 'css/';
   return gulp
-    .src(src + 'css/**/*.css')
-    .pipe(concatCss('app.css'))
-    .pipe(gulp.dest(out));
+    .src([src + 'css/**/*.css', 'node_modules/bootstrap/dist/css/bootstrap.min.css'])
+    .pipe(concat('app.css'))
+    .pipe(gulp.dest(build + 'css/'));
 }
 
 function watch(done) {
@@ -46,9 +39,6 @@ function watch(done) {
   done();
 }
 
-function serve() {
-  return run('electron build/main.js').exec();
-}
-
 exports.build = gulp.parallel(html, css, js, electron);
-exports.default = gulp.series(exports.build, watch, serve);
+exports.watch = gulp.series(exports.build, watch);
+exports.default = exports.build;
